@@ -4,8 +4,17 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Separator } from "@/components/ui/separator";
 import Layout from "../layouts/Layout.astro";
 import { ModeToggle } from '@/components/ModeToggle';
----
+import 'animate.css';
+import 'aos/dist/aos.css';
 
+---
+<script is:inline>
+  import AOS from "aos";
+
+  if (typeof window !== "undefined") {
+    AOS.init();
+  }
+</script>
 <script is:inline>
 	const getThemePreference = () => {
 		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -25,16 +34,12 @@ import { ModeToggle } from '@/components/ModeToggle';
 	}
 </script>
 
-<Layout title="Programita D3 - Soluciones para profesionales del cine">
+<Layout title="programita d3 - Soluciones para profesionales del cine">
   <!-- Header/Navbar -->
-  <header class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80">
+  <header class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80 animate__animated animate__fadeInDown" data-aos="fade-down">
     <div class="container mx-auto flex h-16 items-center justify-between px-4">
-      <a href="/" class="text-2xl font-bold text-primary dark:text-primary-light">Programita D3</a>
-      <nav class="hidden md:flex items-center gap-6">
-        <a href="#productos" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Productos</a>
-        <a href="#nosotros" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Nosotros</a>
-        <a href="#contacto" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Contacto</a>
-      </nav>
+      <a href="/" class="text-2xl font-bold text-primary dark:text-primary-light">programita d3</a>
+
         <ModeToggle client:load />
     </div>
   </header>
@@ -48,38 +53,30 @@ import { ModeToggle } from '@/components/ModeToggle';
   </script>
 
   <!-- Hero Section -->
-  <section class="py-24 px-4">
+  <section class="py-24 px-4 animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground dark:text-foreground-light mb-6">
+  <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground dark:text-foreground-light mb-6 animate__animated animate__fadeInUp">
         Soluciones tecnológicas para profesionales del cine
       </h1>
-      <p class="text-xl text-muted-foreground dark:text-muted-foreground-light max-w-3xl mx-auto mb-10">
-        En Programita D3 desarrollamos herramientas que optimizan los flujos de trabajo cinematográficos, garantizando seguridad, eficiencia y productividad.
+      <p class="text-xl text-muted-foreground dark:text-muted-foreground-light max-w-3xl mx-auto mb-10 animate__animated animate__fadeInUp" data-aos="fade-up">
+        En programita d3 desarrollamos herramientas que optimizan los flujos de trabajo cinematográficos, garantizando seguridad, eficiencia y productividad.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button size="lg" asChild>
-          <a href="#productos">Nuestros Productos</a>
-        </Button>
-        <Button size="lg" variant="outline" asChild>
-          <a href="#nosotros">Conoce más</a>
-        </Button>
-      </div>
     </div>
   </section>
 
   <!-- Productos Section -->
-  <section id="productos" class="py-24 bg-muted/50 dark:bg-muted/70">
+  <section id="productos" class="py-24 bg-muted/50 dark:bg-muted/70 animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light">Nuestros Productos</h2>
-        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">Nuestros Productos</h2>
+        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto animate__animated animate__fadeInUp">
           Desarrollamos soluciones especializadas para cubrir las necesidades específicas de la industria cinematográfica.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Ionisium Card -->
-        <Card className="flex flex-col h-full">
+        <Card className="flex flex-col h-full animate__animated animate__fadeInUp" data-aos="fade-up">
           <CardHeader>
             <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
               <img src="/api/placeholder/400/320" alt="Ionisium" class="rounded-md" />
@@ -99,7 +96,7 @@ import { ModeToggle } from '@/components/ModeToggle';
         </Card>
 
         <!-- CostCompiler Card -->
-        <Card className="flex flex-col h-full">
+        <Card className="flex flex-col h-full animate__animated animate__fadeInUp" data-aos="fade-up">
           <CardHeader>
             <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
               <img src="/api/placeholder/400/320" alt="CostCompiler" class="rounded-md" />
@@ -122,15 +119,15 @@ import { ModeToggle } from '@/components/ModeToggle';
   </section>
 
   <!-- Sobre Nosotros Section -->
-  <section id="nosotros" class="py-24">
+  <section id="nosotros" class="py-24 animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto">
       <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center">
+        <div class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center animate__animated animate__fadeInUp">
           <img src="/api/placeholder/400/320" alt="Nuestro equipo" class="rounded-lg" />
         </div>
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light">Quiénes Somos</h2>
-          <div class="space-y-4 text-muted-foreground dark:text-muted-foreground-light">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">Quiénes Somos</h2>
+          <div class="space-y-4 text-muted-foreground dark:text-muted-foreground-light animate__animated animate__fadeInUp">
             <p>
               En Programita D3, combinamos la pasión por el cine con la experiencia en desarrollo de software para crear soluciones que resuelven los desafíos reales de la industria cinematográfica.
             </p>
@@ -152,10 +149,10 @@ import { ModeToggle } from '@/components/ModeToggle';
   </section>
 
   <!-- CTA Section -->
-  <section id="contacto" class="py-24 bg-background text-foreground dark:bg-background dark:text-foreground">
+  <section id="contacto" class="py-24 bg-background text-foreground dark:bg-background dark:text-foreground animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para transformar tu flujo de trabajo?</h2>
-      <p class="text-xl max-w-2xl mx-auto mb-8 text-muted-foreground dark:text-muted-foreground">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate__animated animate__fadeInUp">¿Listo para transformar tu flujo de trabajo?</h2>
+      <p class="text-xl max-w-2xl mx-auto mb-8 text-muted-foreground dark:text-muted-foreground animate__animated animate__fadeInUp">
         Contáctanos hoy mismo para descubrir cómo nuestras soluciones pueden adaptarse a tus necesidades específicas y optimizar tus procesos de producción.
       </p>
       <Button size="lg" variant="secondary" asChild>
@@ -169,14 +166,14 @@ import { ModeToggle } from '@/components/ModeToggle';
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-4">
-          <h3 class="text-2xl font-bold text-foreground dark:text-foreground">Programita D3</h3>
+          <h3 class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn">Programita D3</h3>
           <p class="text-muted-foreground dark:text-muted-foreground">
             Soluciones tecnológicas especializadas para la industria cinematográfica, diseñadas para optimizar flujos de trabajo y garantizar la seguridad de tus datos.
           </p>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Productos</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Productos</h3>
           <ul class="space-y-2">
             <li>
               <a href="/productos/ionisium" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Ionisium</a>
@@ -188,7 +185,7 @@ import { ModeToggle } from '@/components/ModeToggle';
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Compañía</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Compañía</h3>
           <ul class="space-y-2">
             <li>
               <a href="/nosotros" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Sobre nosotros</a>
@@ -203,7 +200,7 @@ import { ModeToggle } from '@/components/ModeToggle';
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Contacto</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Contacto</h3>
           <ul class="space-y-2">
             <li>
               <a href="mailto:info@programitad3.com" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">info@programitad3.com</a>
@@ -221,7 +218,7 @@ import { ModeToggle } from '@/components/ModeToggle';
       <Separator className="my-8 bg-muted-foreground dark:bg-muted-foreground" />
 
       <div class="text-center text-muted-foreground dark:text-muted-foreground">
-        &copy; 2025 Programita D3. Todos los derechos reservados.
+        &copy; 2025 programita d3. Todos los derechos reservados.
       </div>
     </div>
   </footer>

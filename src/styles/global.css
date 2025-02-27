@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
 @plugin "tailwindcss-animate";
 
@@ -117,6 +118,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: 'Courier Prime', monospace;
   }
   body {
     @apply bg-background text-foreground;
