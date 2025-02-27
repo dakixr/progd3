@@ -1,36 +1,47 @@
 ---
 import "../styles/global.css";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Programita D3 - Soluciones para profesionales del cine">
   <!-- Header/Navbar -->
-  <header class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <header class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80">
     <div class="container mx-auto flex h-16 items-center justify-between px-4">
-      <a href="/" class="text-2xl font-bold text-primary">Programita D3</a>
+      <a href="/" class="text-2xl font-bold text-primary dark:text-primary-light">Programita D3</a>
       <nav class="hidden md:flex items-center gap-6">
-        <a href="#productos" class="text-sm font-medium transition-colors hover:text-primary">Productos</a>
-        <a href="#nosotros" class="text-sm font-medium transition-colors hover:text-primary">Nosotros</a>
-        <a href="#contacto" class="text-sm font-medium transition-colors hover:text-primary">Contacto</a>
+        <a href="#productos" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Productos</a>
+        <a href="#nosotros" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Nosotros</a>
+        <a href="#contacto" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">Contacto</a>
       </nav>
-      <div class="flex items-center">
+      <div class="flex items-center gap-4">
         <Button asChild>
           <a href="#contacto">Contáctanos</a>
         </Button>
+        <button id="dark-mode-toggle" class="text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-light">
+          Toggle Dark Mode
+        </button>
       </div>
     </div>
   </header>
+  <script>
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+      });
+    }
+  </script>
 
   <!-- Hero Section -->
   <section class="py-24 px-4">
     <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground dark:text-foreground-light mb-6">
         Soluciones tecnológicas para profesionales del cine
       </h1>
-      <p class="text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
+      <p class="text-xl text-muted-foreground dark:text-muted-foreground-light max-w-3xl mx-auto mb-10">
         En Programita D3 desarrollamos herramientas que optimizan los flujos de trabajo cinematográficos, garantizando seguridad, eficiencia y productividad.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -45,11 +56,11 @@ import Layout from "../layouts/Layout.astro";
   </section>
 
   <!-- Productos Section -->
-  <section id="productos" class="py-24 bg-muted/50">
+  <section id="productos" class="py-24 bg-muted/50 dark:bg-muted/70">
     <div class="container mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Nuestros Productos</h2>
-        <p class="text-muted-foreground max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light">Nuestros Productos</h2>
+        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto">
           Desarrollamos soluciones especializadas para cubrir las necesidades específicas de la industria cinematográfica.
         </p>
       </div>
@@ -58,13 +69,13 @@ import Layout from "../layouts/Layout.astro";
         <!-- Ionisium Card -->
         <Card className="flex flex-col h-full">
           <CardHeader>
-            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 flex items-center justify-center mb-4">
+            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
               <img src="/api/placeholder/400/320" alt="Ionisium" class="rounded-md" />
             </div>
-            <CardTitle className="text-2xl">Ionisium</CardTitle>
+            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">Ionisium</CardTitle>
           </CardHeader>
           <CardContent>
-            <p class="text-muted-foreground">
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
               Ionisium transforma cómo los profesionales cinematográficos distribuyen documentos sensibles. Desde la marca de agua automatizada hasta la gestión de contactos eficiente, Ionisium asegura que cada PDF llegue a su destinatario de manera inmediata, segura y con un toque personal.
             </p>
           </CardContent>
@@ -78,13 +89,13 @@ import Layout from "../layouts/Layout.astro";
         <!-- CostCompiler Card -->
         <Card className="flex flex-col h-full">
           <CardHeader>
-            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 flex items-center justify-center mb-4">
+            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
               <img src="/api/placeholder/400/320" alt="CostCompiler" class="rounded-md" />
             </div>
-            <CardTitle className="text-2xl">CostCompiler</CardTitle>
+            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">CostCompiler</CardTitle>
           </CardHeader>
           <CardContent>
-            <p class="text-muted-foreground">
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
               Mejora la precisión de tus informes financieros con nuestra herramienta a medida. Específicamente diseñada para productoras, nuestra solución te permite gestionar y reportar costes de manera fluida y segura. Mejora tu flujo de trabajo, protege tus datos y automatiza tu proceso de informes para una productividad óptima.
             </p>
           </CardContent>
@@ -102,12 +113,12 @@ import Layout from "../layouts/Layout.astro";
   <section id="nosotros" class="py-24">
     <div class="container mx-auto">
       <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 flex items-center justify-center">
+        <div class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center">
           <img src="/api/placeholder/400/320" alt="Nuestro equipo" class="rounded-lg" />
         </div>
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Quiénes Somos</h2>
-          <div class="space-y-4 text-muted-foreground">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light">Quiénes Somos</h2>
+          <div class="space-y-4 text-muted-foreground dark:text-muted-foreground-light">
             <p>
               En Programita D3, combinamos la pasión por el cine con la experiencia en desarrollo de software para crear soluciones que resuelven los desafíos reales de la industria cinematográfica.
             </p>
@@ -129,10 +140,10 @@ import Layout from "../layouts/Layout.astro";
   </section>
 
   <!-- CTA Section -->
-  <section id="contacto" class="py-24 bg-primary text-primary-foreground">
+  <section id="contacto" class="py-24 bg-background text-foreground dark:bg-background dark:text-foreground">
     <div class="container mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para transformar tu flujo de trabajo?</h2>
-      <p class="text-xl max-w-2xl mx-auto mb-8 text-primary-foreground/90">
+      <p class="text-xl max-w-2xl mx-auto mb-8 text-muted-foreground dark:text-muted-foreground">
         Contáctanos hoy mismo para descubrir cómo nuestras soluciones pueden adaptarse a tus necesidades específicas y optimizar tus procesos de producción.
       </p>
       <Button size="lg" variant="secondary" asChild>
@@ -142,62 +153,62 @@ import Layout from "../layouts/Layout.astro";
   </section>
 
   <!-- Footer -->
-  <footer class="bg-slate-950 text-slate-50 py-16">
+  <footer class="bg-background text-foreground dark:bg-background dark:text-foreground py-16">
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-4">
-          <h3 class="text-2xl font-bold text-white">Programita D3</h3>
-          <p class="text-slate-400">
+          <h3 class="text-2xl font-bold text-foreground dark:text-foreground">Programita D3</h3>
+          <p class="text-muted-foreground dark:text-muted-foreground">
             Soluciones tecnológicas especializadas para la industria cinematográfica, diseñadas para optimizar flujos de trabajo y garantizar la seguridad de tus datos.
           </p>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-white">Productos</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Productos</h3>
           <ul class="space-y-2">
             <li>
-              <a href="/productos/ionisium" class="text-slate-400 hover:text-white transition-colors">Ionisium</a>
+              <a href="/productos/ionisium" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Ionisium</a>
             </li>
             <li>
-              <a href="/productos/costcompiler" class="text-slate-400 hover:text-white transition-colors">CostCompiler</a>
+              <a href="/productos/costcompiler" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">CostCompiler</a>
             </li>
           </ul>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-white">Compañía</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Compañía</h3>
           <ul class="space-y-2">
             <li>
-              <a href="/nosotros" class="text-slate-400 hover:text-white transition-colors">Sobre nosotros</a>
+              <a href="/nosotros" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Sobre nosotros</a>
             </li>
             <li>
-              <a href="/blog" class="text-slate-400 hover:text-white transition-colors">Blog</a>
+              <a href="/blog" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Blog</a>
             </li>
             <li>
-              <a href="/casos" class="text-slate-400 hover:text-white transition-colors">Casos de éxito</a>
+              <a href="/casos" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Casos de éxito</a>
             </li>
           </ul>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-white">Contacto</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground">Contacto</h3>
           <ul class="space-y-2">
             <li>
-              <a href="mailto:info@programitad3.com" class="text-slate-400 hover:text-white transition-colors">info@programitad3.com</a>
+              <a href="mailto:info@programitad3.com" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">info@programitad3.com</a>
             </li>
             <li>
-              <a href="tel:+34912345678" class="text-slate-400 hover:text-white transition-colors">+34 912 345 678</a>
+              <a href="tel:+34912345678" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">+34 912 345 678</a>
             </li>
             <li>
-              <a href="/contacto" class="text-slate-400 hover:text-white transition-colors">Formulario de contacto</a>
+              <a href="/contacto" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Formulario de contacto</a>
             </li>
           </ul>
         </div>
       </div>
 
-      <Separator className="my-8 bg-slate-800" />
+      <Separator className="my-8 bg-muted-foreground dark:bg-muted-foreground" />
 
-      <div class="text-center text-slate-400">
+      <div class="text-center text-muted-foreground dark:text-muted-foreground">
         &copy; 2025 Programita D3. Todos los derechos reservados.
       </div>
     </div>
