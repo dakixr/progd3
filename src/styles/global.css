@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
