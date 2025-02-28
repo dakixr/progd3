@@ -10,7 +10,8 @@ import { ModeToggle } from '@/components/ModeToggle';
 import { useTranslations } from '@/i18n/utils';
 import { LanguagePicker } from '@/components/LanguagePicker';
 import Layout from "@/layouts/Layout.astro";
-
+import CostCompiler from "@/assets/costcompiler.svg";
+import Ionisium from "@/assets/ionisium.svg";
 import 'animate.css';
 import 'aos/dist/aos.css';
 
@@ -68,9 +69,9 @@ const t = useTranslations(lang as 'es' | 'en');
   <section id="productos" class="py-24 bg-muted/50 dark:bg-muted/70 animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">Nuestros Productos</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">{t('productos.title')}</h2>
         <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto animate__animated animate__fadeInUp">
-          Desarrollamos soluciones especializadas para cubrir las necesidades específicas de la industria cinematográfica.
+          {t('productos.description')}
         </p>
       </div>
 
@@ -78,19 +79,21 @@ const t = useTranslations(lang as 'es' | 'en');
         <!-- Ionisium Card -->
         <Card className="flex flex-col h-full animate__animated animate__fadeInUp" data-aos="fade-up">
           <CardHeader>
-            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
-              <img src="/api/placeholder/400/320" alt="Ionisium" class="rounded-md" />
-            </div>
-            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">Ionisium</CardTitle>
+            <a href="https://ionisium.es/" target="_blank">
+              <div class="aspect-video rounded-md flex items-center justify-center mb-4">
+                <Ionisium width="80%" height="80%" />
+              </div>
+            </a>
+            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">{t('productos.ionisium.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p class="text-muted-foreground dark:text-muted-foreground-light">
-              Ionisium transforma cómo los profesionales cinematográficos distribuyen documentos sensibles. Desde la marca de agua automatizada hasta la gestión de contactos eficiente, Ionisium asegura que cada PDF llegue a su destinatario de manera inmediata, segura y con un toque personal.
+              {t('productos.ionisium.description')}
             </p>
           </CardContent>
           <CardFooter className="mt-auto">
             <Button asChild>
-              <a href="/productos/ionisium">Más información</a>
+              <a href="https://ionisium.es/" target="_blank">{t('productos.moreinfo')}</a>
             </Button>
           </CardFooter>
         </Card>
@@ -98,26 +101,28 @@ const t = useTranslations(lang as 'es' | 'en');
         <!-- CostCompiler Card -->
         <Card className="flex flex-col h-full animate__animated animate__fadeInUp" data-aos="fade-up">
           <CardHeader>
-            <div class="aspect-video rounded-md bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center mb-4">
-              <img src="/api/placeholder/400/320" alt="CostCompiler" class="rounded-md" />
-            </div>
-            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">CostCompiler</CardTitle>
+            <a href="https://www.costcompiler.com/" target="_blank">
+              <div class="aspect-video rounded-md flex items-center justify-center mb-4">
+                <CostCompiler width="80%" height="80%" />
+              </div>
+            </a>
+            <CardTitle className="text-2xl text-foreground dark:text-foreground-light">{t('productos.costcompiler.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p class="text-muted-foreground dark:text-muted-foreground-light">
-              Mejora la precisión de tus informes financieros con nuestra herramienta a medida. Específicamente diseñada para productoras, nuestra solución te permite gestionar y reportar costes de manera fluida y segura. Mejora tu flujo de trabajo, protege tus datos y automatiza tu proceso de informes para una productividad óptima.
+              {t('productos.costcompiler.description')}
             </p>
           </CardContent>
           <CardFooter className="mt-auto">
             <Button asChild>
-              <a href="/productos/costcompiler">Más información</a>
+              <a href="https://www.costcompiler.com/" target="_blank">{t('productos.moreinfo')}</a>
             </Button>
           </CardFooter>
         </Card>
       </div>
       <div class="text-center mt-16">
         <p class="text-lg text-muted-foreground dark:text-muted-foreground-light animate__animated animate__fadeInUp">
-          ¡Y más productos están en camino! Mantente atento para descubrir nuestras próximas innovaciones.
+          {t('productos.more')}
         </p>
       </div>
     </div>
@@ -131,21 +136,15 @@ const t = useTranslations(lang as 'es' | 'en');
           <img src="/api/placeholder/400/320" alt="Nuestro equipo" class="rounded-lg" />
         </div>
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">Quiénes Somos</h2>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp">{t('nosotros.title')}</h2>
           <div class="space-y-4 text-muted-foreground dark:text-muted-foreground-light animate__animated animate__fadeInUp">
-            <p>
-              En programita d3, combinamos la pasión por el cine con la experiencia en desarrollo de software para crear soluciones que resuelven los desafíos reales de la industria cinematográfica.
-            </p>
-            <p>
-              Nuestro equipo está formado por profesionales con amplia experiencia tanto en tecnología como en producción audiovisual, lo que nos permite entender perfectamente las necesidades de nuestros clientes.
-            </p>
-            <p>
-              Nos dedicamos a mejorar los flujos de trabajo, aumentar la seguridad y optimizar la productividad en cada fase de la producción cinematográfica.
-            </p>
+            <p>{t('nosotros.description1')}</p>
+            <p>{t('nosotros.description2')}</p>
+            <p>{t('nosotros.description3')}</p>
           </div>
           <div class="mt-8">
             <Button asChild>
-              <a href="#contacto">Contacta con nosotros</a>
+              <a href="#contacto">{t('contacto.title')}</a>
             </Button>
           </div>
         </div>
@@ -156,12 +155,12 @@ const t = useTranslations(lang as 'es' | 'en');
   <!-- CTA Section -->
   <section id="contacto" class="pt-24 pb-48 px-4 md:px-0 bg-background text-foreground dark:bg-background dark:text-foreground animate__animated animate__fadeIn" data-aos="fade-up">
     <div class="container mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate__animated animate__fadeInUp">¿Listo para transformar tu flujo de trabajo?</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate__animated animate__fadeInUp">{t('contacto.title')}</h2>
       <p class="text-xl max-w-2xl mx-auto mb-8 text-muted-foreground dark:text-muted-foreground animate__animated animate__fadeInUp">
-        Contáctanos hoy mismo para descubrir cómo nuestras soluciones pueden adaptarse a tus necesidades específicas y optimizar tus procesos de producción.
+        {t('contacto.description')}
       </p>
       <Button size="lg" variant="secondary" asChild>
-        <a href="/contacto">Solicitar demostración</a>
+        <a href="/contacto">{t('contacto.title')}</a>
       </Button>
     </div>
   </section>
@@ -171,44 +170,44 @@ const t = useTranslations(lang as 'es' | 'en');
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-4">
-          <h3 class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn">programita d3</h3>
+          <h3 class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn">{t('footer.title')}</h3>
           <p class="text-muted-foreground dark:text-muted-foreground">
-            Soluciones tecnológicas especializadas para la industria cinematográfica, diseñadas para optimizar flujos de trabajo y garantizar la seguridad de tus datos.
+            {t('footer.description')}
           </p>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Productos</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">{t('footer.products')}</h3>
           <ul class="space-y-2">
             <li>
-              <a href="/productos/ionisium" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Ionisium</a>
+              <a href="https://ionisium.es/" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">{t('productos.ionisium.title')}</a>
             </li>
             <li>
-              <a href="/productos/costcompiler" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">CostCompiler</a>
+              <a href="https://www.costcompiler.com/" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">{t('productos.costcompiler.title')}</a>
             </li>
           </ul>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Contacto</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">{t('footer.contact')}</h3>
           <ul class="space-y-2">
             <li>
-              <a href="mailto:info@programitad3.com" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">info@programitad3.com</a>
+              <a href="#" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">info@programitad3.com</a>
             </li>
             <li>
-              <a href="tel:+34912345678" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">+34 912 345 678</a>
+              <a href="#" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">+34 912 345 678</a>
             </li>
           </ul>
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">Carreras</h3>
+          <h3 class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn">{t('footer.careers')}</h3>
           <ul class="space-y-2">
             <li>
-              <a href="/carreras/oportunidades" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Oportunidades de empleo</a>
+              <a href="#" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Oportunidades de empleo</a>
             </li>
             <li>
-              <a href="/carreras/cultura" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Nuestra cultura</a>
+              <a href="#" class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground">Nuestra cultura</a>
             </li>
           </ul>
         </div>
@@ -217,7 +216,7 @@ const t = useTranslations(lang as 'es' | 'en');
       <Separator className="my-8 bg-muted-foreground dark:bg-muted-foreground" />
 
       <div class="text-center text-muted-foreground dark:text-muted-foreground">
-        &copy; 2025 programita d3. Todos los derechos reservados.
+        &copy; {t('footer.copyright')}
       </div>
 
     </div>
