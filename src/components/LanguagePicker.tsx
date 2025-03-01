@@ -16,11 +16,12 @@ export function LanguagePicker({ lang }: { lang: string }) {
         {t('language')}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {Object.entries(languages).map(([languageCode, label]) => (
-          <DropdownMenuItem key={languageCode}>
-            <a href={`/${languageCode}/`}>{label}</a>
+          <DropdownMenuItem>
+            <a href="/">Español</a>
           </DropdownMenuItem>
-        ))}
+        <DropdownMenuItem>
+          <a href="/en/">English</a>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

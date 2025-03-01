@@ -1,0 +1,348 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ModeToggle } from "@/components/ModeToggle";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import Layout from "@/layouts/Layout.astro";
+
+import "animate.css";
+import "aos/dist/aos.css";
+
+import CostCompiler from "@/assets/costcompiler.svg";
+import Ionisium from "@/assets/ionisium.svg";
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+
+<Layout title={t("header.title")}>
+  <!-- Header/Navbar -->
+  <header
+    class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80 animate__animated animate__fadeInDown"
+    data-aos="fade-down"
+  >
+    <div class="container mx-auto flex h-16 items-center justify-between px-4">
+      <a
+        href="/"
+        class="text-2xl font-bold text-primary dark:text-primary-light"
+        >{t("header.title")}</a
+      >
+      <div class="flex items-center gap-4">
+        <LanguagePicker lang={lang} client:load />
+        <ModeToggle client:load />
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section
+    class="py-16 md:py-24 px-4 animate__animated animate__fadeIn"
+    data-aos="fade-up"
+  >
+    <div class="container mx-auto text-center">
+      <h1
+        class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground dark:text-foreground-light mb-6 animate__animated animate__fadeInUp"
+      >
+        {t("hero.title")}
+      </h1>
+      <p
+        class="text-xl text-muted-foreground dark:text-muted-foreground-light max-w-3xl mx-auto mb-10 animate__animated animate__fadeInUp"
+        data-aos="fade-up"
+      >
+        {t("hero.description")}
+      </p>
+    </div>
+  </section>
+
+  <!-- Productos Section -->
+  <section
+    id="productos"
+    class="py-24 bg-muted/50 dark:bg-muted/70 animate__animated animate__fadeIn"
+    data-aos="fade-up"
+  >
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp"
+        >
+          {t("productos.title")}
+        </h2>
+        <p
+          class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto animate__animated animate__fadeInUp"
+        >
+          {t("productos.description")}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Ionisium Card -->
+        <Card
+          className="flex flex-col h-full animate__animated animate__fadeInUp"
+          data-aos="fade-up"
+        >
+          <CardHeader>
+            <a href="https://ionisium.es/" target="_blank">
+              <div
+                class="aspect-video rounded-md flex items-center justify-center mb-4"
+              >
+                <Ionisium width="80%" height="80%" />
+              </div>
+            </a>
+            <CardTitle
+              className="text-2xl text-foreground dark:text-foreground-light"
+              >{t("productos.ionisium.title")}</CardTitle
+            >
+          </CardHeader>
+          <CardContent>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t("productos.ionisium.description")}
+            </p>
+          </CardContent>
+          <CardFooter className="mt-auto">
+            <Button asChild>
+              <a href="https://ionisium.es/" target="_blank"
+                >{t("productos.moreinfo")}</a
+              >
+            </Button>
+          </CardFooter>
+        </Card>
+
+        <!-- CostCompiler Card -->
+        <Card
+          className="flex flex-col h-full animate__animated animate__fadeInUp"
+          data-aos="fade-up"
+        >
+          <CardHeader>
+            <a href="https://www.costcompiler.com/" target="_blank">
+              <div
+                class="aspect-video rounded-md flex items-center justify-center mb-4"
+              >
+                <CostCompiler width="80%" height="80%" />
+              </div>
+            </a>
+            <CardTitle
+              className="text-2xl text-foreground dark:text-foreground-light"
+              >{t("productos.costcompiler.title")}</CardTitle
+            >
+          </CardHeader>
+          <CardContent>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t("productos.costcompiler.description")}
+            </p>
+          </CardContent>
+          <CardFooter className="mt-auto">
+            <Button asChild>
+              <a href="https://www.costcompiler.com/" target="_blank"
+                >{t("productos.moreinfo")}</a
+              >
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+      <div class="text-center mt-16">
+        <p
+          class="text-lg text-muted-foreground dark:text-muted-foreground-light animate__animated animate__fadeInUp"
+        >
+          {t("productos.more")}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Nosotros Section -->
+  <section
+    id="nosotros"
+    class="py-24 px-4 md:px-0 animate__animated animate__fadeIn"
+    data-aos="fade-up"
+  >
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div
+          class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center animate__animated animate__fadeInUp"
+        >
+          <img
+            src="/api/placeholder/400/320"
+            alt="Nuestro equipo"
+            class="rounded-lg"
+          />
+        </div>
+        <div>
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-6 text-foreground dark:text-foreground-light animate__animated animate__fadeInUp"
+          >
+            {t("nosotros.title")}
+          </h2>
+          <div
+            class="space-y-4 text-muted-foreground dark:text-muted-foreground-light animate__animated animate__fadeInUp"
+          >
+            <p>{t("nosotros.description1")}</p>
+            <p>{t("nosotros.description2")}</p>
+            <p>{t("nosotros.description3")}</p>
+          </div>
+          <div class="mt-8">
+            <Button asChild>
+              <a href="#contacto">{t("contacto.title")}</a>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section
+    id="contacto"
+    class="pt-24 pb-48 px-4 md:px-0 bg-background text-foreground dark:bg-background dark:text-foreground animate__animated animate__fadeIn"
+    data-aos="fade-up"
+  >
+    <div class="container mx-auto text-center">
+      <h2
+        class="text-3xl md:text-4xl font-bold mb-6 animate__animated animate__fadeInUp"
+      >
+        {t("contacto.title")}
+      </h2>
+      <p
+        class="text-xl max-w-2xl mx-auto mb-8 text-muted-foreground dark:text-muted-foreground animate__animated animate__fadeInUp"
+      >
+        {t("contacto.description")}
+      </p>
+      <Button size="lg" variant="secondary" asChild>
+        <a href="/contacto">{t("contacto.title")}</a>
+      </Button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer
+    class="bg-background text-foreground dark:bg-background dark:text-foreground py-16 px-4 md:px-0"
+  >
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="space-y-4">
+          <h3
+            class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.title")}
+          </h3>
+          <p class="text-muted-foreground dark:text-muted-foreground">
+            {t("footer.description")}
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.products")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="https://ionisium.es/"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >{t("productos.ionisium.title")}</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.costcompiler.com/"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >{t("productos.costcompiler.title")}</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.contact")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="#"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >info@programitad3.com</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >+34 912 345 678</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.careers")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="#"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >Oportunidades de empleo</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >Nuestra cultura</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <Separator
+        className="my-8 bg-muted-foreground dark:bg-muted-foreground"
+      />
+
+      <div class="text-center text-muted-foreground dark:text-muted-foreground">
+        &copy; {t("footer.copyright")}
+      </div>
+    </div>
+  </footer>
+</Layout>

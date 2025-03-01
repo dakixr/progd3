@@ -9,10 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/ModeToggle";
-import { useTranslations } from "@/i18n/utils";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import { LanguagePicker } from "@/components/LanguagePicker";
 import Layout from "@/layouts/Layout.astro";
-import { languages } from "@/i18n/ui";
 
 import "animate.css";
 import "aos/dist/aos.css";
@@ -20,12 +19,8 @@ import "aos/dist/aos.css";
 import CostCompiler from "@/assets/costcompiler.svg";
 import Ionisium from "@/assets/ionisium.svg";
 
-export function getStaticPaths() {
-  const availableLangs = Object.keys(languages);
-  return availableLangs.map((lang) => ({ params: { lang } }));
-}
 
-const { lang } = Astro.params as { lang: keyof typeof languages };
+const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
