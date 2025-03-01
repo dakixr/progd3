@@ -2,4 +2,4 @@
 
 astro build
 
-aws s3 sync dist/ s3://progd3.es
+aws s3 sync dist/ s3://progd3.es --delete
