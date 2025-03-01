@@ -27,6 +27,8 @@ export const ui = {
     'footer.contact': 'Contacto',
     'footer.careers': 'Carreras',
     'footer.copyright': '2025 programita d3. Todos los derechos reservados.',
+    'footer.job_opportunities': 'Oportunidades de empleo',
+    'footer.our_culture': 'Nuestra cultura',
     'description': 'Soluciones tecnológicas especializadas para la industria cinematográfica, desarrolladas por expertos en el sector.',
   },
   en: {
@@ -50,6 +52,8 @@ export const ui = {
     'footer.contact': 'Contact',
     'footer.careers': 'Careers',
     'footer.copyright': '2025 programita d3. All rights reserved.',
+    'footer.job_opportunities': 'Job Opportunities',
+    'footer.our_culture': 'Our Culture',
     'description': 'Specialized technological solutions for the film industry, developed by experts in the field.',
   },
 } as const;
