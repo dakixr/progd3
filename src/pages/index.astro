@@ -29,7 +29,9 @@ const t = useTranslations(lang);
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
     }
-    return "dark"; // Set default to dark
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   };
 
   const isDark = getThemePreference() === "dark";
@@ -193,9 +195,9 @@ const t = useTranslations(lang);
           class="rounded-lg aspect-square md:aspect-auto md:h-96 bg-gradient-to-br from-primary/20 to-primary/30 dark:from-primary-light/20 dark:to-primary-light/30 flex items-center justify-center animate__animated animate__fadeInUp"
         >
           <img
-            src="/api/placeholder/400/320"
+            src="/car-thing.webp"
             alt="Nuestro equipo"
-            class="rounded-lg"
+            class="rounded-lg h-full object-cover"
           />
         </div>
         <div>
