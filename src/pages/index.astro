@@ -49,7 +49,7 @@ const t = useTranslations(lang);
   }
 </script>
 
-<Layout title={t("header.title")}>
+<Layout title="programita d3">
   <!-- Header/Navbar -->
   <header
     class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80 animate__animated animate__fadeInDown"
@@ -58,8 +58,8 @@ const t = useTranslations(lang);
     <div class="container mx-auto flex h-16 items-center justify-between px-4">
       <a
         href="/"
-        class="text-2xl font-bold text-primary dark:text-primary-light"
-        >{t("header.title")}</a
+        class="font-pixelify text-2xl font-bold text-primary dark:text-primary-light"
+        >programita d3</a
       >
       <div class="flex items-center gap-4">
         <LanguagePicker lang={lang} client:load />
@@ -123,8 +123,8 @@ const t = useTranslations(lang);
               </div>
             </a>
             <CardTitle
-              className="text-2xl text-foreground dark:text-foreground-light"
-              >{t("productos.ionisium.title")}</CardTitle
+              className="font-pixelify text-2xl text-foreground dark:text-foreground-light"
+              >Ionisium</CardTitle
             >
           </CardHeader>
           <CardContent>
@@ -155,8 +155,8 @@ const t = useTranslations(lang);
               </div>
             </a>
             <CardTitle
-              className="text-2xl text-foreground dark:text-foreground-light"
-              >{t("productos.costcompiler.title")}</CardTitle
+              className="font-pixelify text-2xl text-foreground dark:text-foreground-light"
+              >CostCompiler</CardTitle
             >
           </CardHeader>
           <CardContent>
@@ -256,7 +256,7 @@ const t = useTranslations(lang);
           <h3
             class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn"
           >
-            {t("footer.title")}
+            programita d3
           </h3>
           <p class="text-muted-foreground dark:text-muted-foreground">
             {t("footer.description")}
@@ -274,14 +274,14 @@ const t = useTranslations(lang);
               <a
                 href="https://ionisium.es/"
                 class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
-                >{t("productos.ionisium.title")}</a
+                >Ionisium</a
               >
             </li>
             <li>
               <a
                 href="https://www.costcompiler.com/"
                 class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
-                >{t("productos.costcompiler.title")}</a
+                >CostCompiler</a
               >
             </li>
           </ul>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -120,7 +121,15 @@
     @apply border-border outline-ring/50;
     font-family: 'Courier Prime', monospace;
   }
+  h1, h2, h3, h4, h5, h6 {
+    @apply border-border outline-ring/50;
+    font-family: 'Pixelify Sans', sans-serif;
+  }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@theme {
+  --font-pixelify: "Pixelify Sans", sans-serif; 
 }
