@@ -9,7 +9,9 @@ export const ui = {
   es: {
     'language': 'Idioma',
     'hero.title': 'Soluciones tecnológicas para profesionales del cine',
+    'hero.sparkles': 'Soluciones para profesionales del cine',
     'hero.description': 'En programita d3 desarrollamos herramientas que optimizan los flujos de trabajo cinematográficos, garantizando seguridad, eficiencia y productividad.',
+    'hero.cta_primary': 'Ponte en contacto',
     'productos.title': 'Nuestros Productos',
     'productos.description': 'Desarrollamos soluciones especializadas para cubrir las necesidades específicas de la industria cinematográfica.',
     'productos.ionisium.description': 'Ionisium transforma cómo los profesionales cinematográficos distribuyen documentos sensibles, asegurando envíos seguros con marcas de agua automatizadas y una gestión eficiente de contactos.',
@@ -34,7 +36,9 @@ export const ui = {
   en: {
     'language': 'Language',
     'hero.title': 'Technological solutions for film professionals',
+    'hero.sparkles': 'Solutions for film professionals',
     'hero.description': 'At programita d3, we develop tools that optimize film production workflows, ensuring security, efficiency, and productivity.',
+    'hero.cta_primary': 'Get in touch',
     'productos.title': 'Our Products',
     'productos.description': 'We develop specialized solutions to meet the specific needs of the film industry.',
     'productos.ionisium.description': 'Ionisium transforms how film professionals distribute sensitive documents, ensuring secure deliveries with automated watermarking and efficient contact management.',

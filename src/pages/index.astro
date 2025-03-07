@@ -12,13 +12,14 @@ import { ModeToggle } from "@/components/ModeToggle";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import { LanguagePicker } from "@/components/LanguagePicker";
 import Layout from "@/layouts/Layout.astro";
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 import "animate.css";
 import "aos/dist/aos.css";
 
 import CostCompiler from "@/assets/costcompiler.svg";
 import Ionisium from "@/assets/ionisium.svg";
-
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -69,22 +70,40 @@ const t = useTranslations(lang);
   </header>
 
   <!-- Hero Section -->
-  <section
-    class="pb-16 md:pb-24 md:mt-16 px-4 animate__animated animate__fadeIn"
-    data-aos="fade-up"
-  >
-    <div class="container mx-auto text-center">
-      <h1
-        class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground dark:text-foreground-light mb-6 animate__animated animate__fadeInUp"
+  <section class="relative overflow-hidden py-32 px-4">
+    <div class="container mx-auto relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="text-center space-y-8 py-20"
+        client:load
       >
-        {t("hero.title")}
-      </h1>
-      <p
-        class="text-xl text-muted-foreground dark:text-muted-foreground-light max-w-3xl mx-auto mb-10 animate__animated animate__fadeInUp"
-        data-aos="fade-up"
-      >
-        {t("hero.description")}
-      </p>
+        <div
+          class="inline-flex items-center gap-2 rounded-full bg-black dark:bg-zinc-800 px-4 py-2 text-sm text-black font-semibold shadow-md"
+        >
+          <Sparkles className="mr-2 h-5 w-5 text-white" client:load />
+          <span class="text-white">
+            {t("hero.sparkles")}
+          </span>
+        </div>
+        <h1
+          class="text-5xl md:text-7xl font-extrabold text-primary-light dark:text-primary"
+        >
+          programita d3
+        </h1>
+        <p class="mt-4 text-lg md:text-xl max-w-4xl mx-auto text-primary dark:text-primary-light">
+          {t("hero.description")}
+        </p>
+        <a
+          href="mailto:contact@programitad3.es"
+          class="mt-8 flex justify-center gap-4"
+        >
+          <Button size="lg" className="shadow-xl cursor-pointer text-white dark:text-black">
+            {t("hero.cta_primary")}
+          </Button>
+        </a>
+      </motion.div>
     </div>
   </section>
 
@@ -113,8 +132,9 @@ const t = useTranslations(lang);
         <Card
           className="flex flex-col h-full animate__animated animate__fadeInUp"
           data-aos="fade-up"
+          client:load
         >
-          <CardHeader>
+          <CardHeader client:load>
             <a href="https://ionisium.es/" target="_blank">
               <div
                 class="aspect-video rounded-md flex items-center justify-center mb-4"
@@ -127,12 +147,12 @@ const t = useTranslations(lang);
               >Ionisium</CardTitle
             >
           </CardHeader>
-          <CardContent>
+          <CardContent client:load>
             <p class="text-muted-foreground dark:text-muted-foreground-light">
               {t("productos.ionisium.description")}
             </p>
           </CardContent>
-          <CardFooter className="mt-auto">
+          <CardFooter className="mt-auto" client:load>
             <Button asChild>
               <a href="https://ionisium.es/" target="_blank"
                 >{t("productos.moreinfo")}</a
@@ -146,7 +166,7 @@ const t = useTranslations(lang);
           className="flex flex-col h-full animate__animated animate__fadeInUp"
           data-aos="fade-up"
         >
-          <CardHeader>
+          <CardHeader client:load>
             <a href="https://costcompiler.com/" target="_blank">
               <div
                 class="aspect-video rounded-md flex items-center justify-center mb-4"
@@ -159,12 +179,12 @@ const t = useTranslations(lang);
               >CostCompiler</CardTitle
             >
           </CardHeader>
-          <CardContent>
+          <CardContent client:load>
             <p class="text-muted-foreground dark:text-muted-foreground-light">
               {t("productos.costcompiler.description")}
             </p>
           </CardContent>
-          <CardFooter className="mt-auto">
+          <CardFooter className="mt-auto" client:load>
             <Button asChild>
               <a href="https://www.costcompiler.com/" target="_blank"
                 >{t("productos.moreinfo")}</a
@@ -240,7 +260,7 @@ const t = useTranslations(lang);
       >
         {t("contacto.description")}
       </p>
-      <Button size="lg" variant="secondary" asChild>
+      <Button size="lg" variant="secondary" asChild client:load>
         <a href="#">{t("contacto.title")}</a>
       </Button>
     </div>
@@ -338,6 +358,7 @@ const t = useTranslations(lang);
 
       <Separator
         className="my-8 bg-muted-foreground dark:bg-muted-foreground"
+        client:load
       />
 
       <div class="text-center text-muted-foreground dark:text-muted-foreground">
