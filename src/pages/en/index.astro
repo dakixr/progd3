@@ -139,14 +139,31 @@ const t = useTranslations(lang);
           data-aos="fade-up"
           client:load
         >
-          <CardHeader client:load>
-            <a href="https://ionisium.es/" target="_blank">
+          <CardHeader className="relative group" client:load>
+            <a
+              href="https://ionisium.es/"
+              class="absolute h-full w-full opacity-0 group-hover:opacity-50 transition-opacity duration-1000 filter blur-3xl mix-blend-multiply"
+            >
+              <div
+                class="absolute top-[30%] left-[22%] w-72 h-72 bg-purple-300 rounded-full animation-delay-2000 animate-blob"
+              >
+              </div>
+              <div
+                class="absolute top-[28%] right-[22%] w-72 h-72 bg-yellow-300 rounded-full animation-delay-4000 animate-blob"
+              >
+              </div>
+              <div
+                class="absolute bottom-[22%] left-[48%] transform -translate-x-1/2 w-72 h-72 bg-pink-300 rounded-full animation-delay-4000 animate-blob"
+              >
+              </div>
+            </a>
+            <div>
               <div
                 class="aspect-video rounded-md flex items-center justify-center mb-4"
               >
                 <Ionisium width="80%" height="80%" />
               </div>
-            </a>
+            </div>
             <CardTitle
               className="font-pixelify text-2xl text-foreground dark:text-foreground-light"
               >Ionisium</CardTitle
