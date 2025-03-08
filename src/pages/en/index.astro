@@ -70,7 +70,7 @@ const t = useTranslations(lang);
   </header>
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden py-32 px-4">
+  <section class="relative overflow-hidden px-4 py-16 md:py-32">
     <div class="container mx-auto relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -142,14 +142,14 @@ const t = useTranslations(lang);
           <CardHeader className="relative group" client:load>
             <a
               href="https://ionisium.es/"
-              class="absolute h-full w-full opacity-0 group-hover:opacity-50 transition-opacity duration-1000 filter blur-3xl mix-blend-multiply"
+              class="absolute h-full w-full opacity-0 group-hover:opacity-35 transition-opacity duration-1000 filter blur-3xl mix-blend-multiply"
             >
               <div
                 class="absolute top-[30%] left-[22%] w-72 h-72 bg-purple-300 rounded-full animation-delay-2000 animate-blob"
               >
               </div>
               <div
-                class="absolute top-[28%] right-[22%] w-72 h-72 bg-yellow-300 rounded-full animation-delay-4000 animate-blob"
+                class="absolute top-[28%] right-[42%] w-72 h-72 bg-yellow-300 rounded-full animate-blob"
               >
               </div>
               <div
@@ -187,15 +187,33 @@ const t = useTranslations(lang);
         <Card
           className="flex flex-col h-full animate__animated animate__fadeInUp"
           data-aos="fade-up"
+          client:load
         >
-          <CardHeader client:load>
-            <a href="https://costcompiler.com/" target="_blank">
+          <CardHeader className="relative group" client:load>
+            <a
+              href="https://costcompiler.com/"
+              class="absolute h-full w-full opacity-0 group-hover:opacity-35 transition-opacity duration-1000 filter blur-3xl mix-blend-multiply"
+            >
+              <div
+                class="absolute top-[30%] left-[22%] w-72 h-72 bg-purple-300 rounded-full animation-delay-2000 animate-blob"
+              >
+              </div>
+              <div
+                class="absolute top-[28%] right-[42%] w-72 h-72 bg-yellow-300 rounded-full animate-blob"
+              >
+              </div>
+              <div
+                class="absolute bottom-[22%] left-[48%] transform -translate-x-1/2 w-72 h-72 bg-pink-300 rounded-full animation-delay-4000 animate-blob"
+              >
+              </div>
+            </a>
+            <div>
               <div
                 class="aspect-video rounded-md flex items-center justify-center mb-4"
               >
                 <CostCompiler width="80%" height="80%" />
               </div>
-            </a>
+            </div>
             <CardTitle
               className="font-pixelify text-2xl text-foreground dark:text-foreground-light"
               >CostCompiler</CardTitle
