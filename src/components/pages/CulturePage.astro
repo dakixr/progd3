@@ -1,0 +1,218 @@
+---
+import { Button } from "@/components/ui/button";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/i18n/utils";
+import Layout from "@/layouts/Layout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<Layout title={`${t('culture.title')} | programita d3`}>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden px-4 py-16 md:py-24">
+    <div class="container mx-auto relative z-10">
+      <div class="text-center space-y-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary-light dark:text-primary">
+          {t('culture.title')}
+        </h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground dark:text-muted-foreground-light">
+          {t('culture.description')}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4 text-foreground dark:text-foreground-light">
+          {t('culture.values.title')}
+        </h2>
+        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto">
+          {t('culture.values.description')}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-card rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m7 10 3 3 7-7"></path></svg>
+            </div>
+            <h3 class="text-xl font-semibold">{t('culture.values.innovation.title')}</h3>
+          </div>
+          <p class="text-muted-foreground dark:text-muted-foreground-light">
+            {t('culture.values.innovation.description')}
+          </p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3 class="text-xl font-semibold">{t('culture.values.collaboration.title')}</h3>
+          </div>
+          <p class="text-muted-foreground dark:text-muted-foreground-light">
+            {t('culture.values.collaboration.description')}
+          </p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+            </div>
+            <h3 class="text-xl font-semibold">{t('culture.values.excellence.title')}</h3>
+          </div>
+          <p class="text-muted-foreground dark:text-muted-foreground-light">
+            {t('culture.values.excellence.description')}
+          </p>
+        </div>
+
+        <div class="bg-card rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            </div>
+            <h3 class="text-xl font-semibold">{t('culture.values.support.title')}</h3>
+          </div>
+          <p class="text-muted-foreground dark:text-muted-foreground-light">
+            {t('culture.values.support.description')}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Environment Section -->
+  <section class="py-16 px-4 bg-muted/50 dark:bg-muted/70">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4 text-foreground dark:text-foreground-light">
+          {t('culture.environment.title')}
+        </h2>
+        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto">
+          {t('culture.environment.description')}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-card rounded-lg overflow-hidden shadow-md">
+          <div class="aspect-video bg-muted">
+            <img src="/car-thing.webp" alt="Office space" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">{t('culture.environment.modern_spaces')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light text-sm">
+              {t('culture.environment.modern_spaces_description')}
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-card rounded-lg overflow-hidden shadow-md">
+          <div class="aspect-video bg-muted">
+            <img src="/car-thing.webp" alt="Team collaboration" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">{t('culture.environment.team_events')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light text-sm">
+              {t('culture.environment.team_events_description')}
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-card rounded-lg overflow-hidden shadow-md">
+          <div class="aspect-video bg-muted">
+            <img src="/car-thing.webp" alt="Remote work" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">{t('culture.environment.flexibility')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light text-sm">
+              {t('culture.environment.flexibility_description')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4 text-foreground dark:text-foreground-light">
+          {t('culture.benefits.title')}
+        </h2>
+        <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto">
+          {t('culture.benefits.description')}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="flex gap-4 items-start">
+          <div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-full mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{t('culture.benefits.health.title')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t('culture.benefits.health.description')}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-full mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{t('culture.benefits.learning.title')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t('culture.benefits.learning.description')}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-full mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{t('culture.benefits.equipment.title')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t('culture.benefits.equipment.description')}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-full mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary dark:text-primary-light"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{t('culture.benefits.work_life.title')}</h3>
+            <p class="text-muted-foreground dark:text-muted-foreground-light">
+              {t('culture.benefits.work_life.description')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join Us CTA -->
+  <section class="py-16 px-4 bg-primary/5 dark:bg-primary/10">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-4 text-foreground dark:text-foreground-light">
+        {t('culture.join_us.title')}
+      </h2>
+      <p class="text-muted-foreground dark:text-muted-foreground-light max-w-2xl mx-auto mb-8">
+        {t('culture.join_us.description')}
+      </p>
+      <Button asChild size="lg">
+        <a href={localizedPath('jobs', lang)}>{t('culture.join_us.cta')}</a>
+      </Button>
+    </div>
+  </section>
+</Layout> 

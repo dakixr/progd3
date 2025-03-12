@@ -7,7 +7,7 @@ interface Props {
 const { title, description } = Astro.props;
 
 import '../styles/global.css'
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 import { ModeToggle } from "@/components/ModeToggle";
 import { LanguagePicker } from "@/components/LanguagePicker";
 import { Separator } from "@/components/ui/separator";
@@ -154,7 +154,7 @@ const t = useTranslations(lang);
               </li>
               <li>
                 <a
-                  href="#"
+                  href={localizedPath('culture', lang)}
                   class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
                   >{t("footer.our_culture")}</a
                 >
