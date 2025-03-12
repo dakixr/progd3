@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# job-manager - A simple wrapper for the job-manager.js script
+
+# Get the directory of this script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$SCRIPT_DIR"
+
+# Check if the script exists
+if [ ! -f "$PROJECT_ROOT/src/scripts/job-manager.js" ]; then
+    echo "Error: job-manager.js script not found at $PROJECT_ROOT/src/scripts/job-manager.js"
+    exit 1
+fi
+
+# Run the job manager script with all arguments passed to this script
+node --experimental-modules "$PROJECT_ROOT/src/scripts/job-manager.js" "$@" 

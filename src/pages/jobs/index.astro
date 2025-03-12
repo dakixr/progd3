@@ -1,0 +1,417 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ModeToggle } from "@/components/ModeToggle";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import Layout from "@/layouts/Layout.astro";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { jobs } from "@/data/jobs";
+import { formatPostedDate, getWorkModeIcon } from "@/lib/utils";
+
+import { MapPin, Clock, Briefcase, Calendar } from "lucide-react";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Group jobs by department
+const departments = [...new Set(jobs.map(job => job.department))];
+const locations = [...new Set(jobs.map(job => job.location))];
+const types = [...new Set(jobs.map(job => job.type))];
+
+// Sort jobs by posted date (newest first)
+const sortedJobs = [...jobs].sort((a, b) => 
+  new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime()
+);
+
+// Get department label
+function getDepartmentLabel(department: string) {
+  if (department === 'engineering') return t('jobs.engineering');
+  if (department === 'design') return t('jobs.design');
+  if (department === 'marketing') return t('jobs.marketing');
+  if (department === 'product') return t('jobs.product');
+  if (department === 'other') return t('jobs.other');
+  return department;
+}
+
+// Get type label
+function getTypeLabel(type: string) {
+  if (type === 'full_time') return t('jobs.full_time');
+  if (type === 'part_time') return t('jobs.part_time');
+  return type;
+}
+---
+
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+
+<Layout title={`${t('jobs.title')} | programita d3`}>
+  <!-- Header/Navbar -->
+  <header
+    class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80 animate__animated animate__fadeInDown"
+    data-aos="fade-down"
+  >
+    <div class="container mx-auto flex h-16 items-center justify-between px-4">
+      <a
+        href="/"
+        class="font-pixelify text-2xl font-bold text-primary dark:text-primary-light"
+        >programita d3</a
+      >
+      <div class="flex items-center gap-4">
+        <LanguagePicker lang={lang} client:load />
+        <ModeToggle client:load />
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden px-4 py-16">
+    <div class="container mx-auto relative z-10">
+      <div class="text-center space-y-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary-light dark:text-primary">
+          {t('jobs.title')}
+        </h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground dark:text-muted-foreground-light">
+          {t('jobs.description')}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jobs Section -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto">
+      <div id="jobs-tabs-container"></div>
+
+      <div class="grid md:grid-cols-2 gap-6 mt-8" id="jobs-grid">
+        {sortedJobs.length > 0 ? (
+          sortedJobs.map((job) => (
+            <Card className="overflow-hidden job-card" data-department={job.department} data-location={job.location} data-type={job.type}>
+              <CardHeader className="pb-2">
+                <div class="flex justify-between items-start">
+                  <CardTitle className="text-xl">{job.title}</CardTitle>
+                  <Badge variant="outline" client:load>{getWorkModeIcon(job.workMode)} {job.workMode}</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <p class="text-muted-foreground line-clamp-2 mb-4">{job.description}</p>
+                <div class="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  <div class="flex items-center gap-1">
+                    <MapPin className="h-4 w-4" />
+                    <span>{job.location}</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <Briefcase className="h-4 w-4" />
+                    <span>{getDepartmentLabel(job.department)}</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>{getTypeLabel(job.type)}</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>{formatPostedDate(job.postedDate)}</span>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button asChild>
+                  <a href={`/jobs/${job.id}`}>{t('jobs.apply_button')}</a>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))
+        ) : (
+          <div class="col-span-2 text-center py-12">
+            <p class="text-muted-foreground">{t('jobs.no_positions')}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer
+    class="bg-background text-foreground dark:bg-background dark:text-foreground py-16 px-4 md:px-0"
+  >
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="space-y-4">
+          <h3
+            class="text-2xl font-bold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            programita d3
+          </h3>
+          <p class="text-muted-foreground dark:text-muted-foreground">
+            {t("footer.description")}
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.products")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="https://ionisium.es/"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >Ionisium</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.costcompiler.com/"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >CostCompiler</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.contact")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="mailto:info@programitad3.com"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >info@programitad3.com</a
+              >
+            </li>
+            <li>
+              <a
+                href="tel:+34912345678"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >+34 912 345 678</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3
+            class="text-lg font-semibold text-foreground dark:text-foreground animate__animated animate__fadeIn"
+          >
+            {t("footer.careers")}
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="/jobs"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >{t("footer.job_opportunities")}</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-muted-foreground hover:text-foreground transition-colors dark:text-muted-foreground dark:hover:text-foreground"
+                >{t("footer.our_culture")}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <Separator
+        className="my-8 bg-muted-foreground dark:bg-muted-foreground"
+        client:load
+      />
+
+      <div class="text-center text-muted-foreground dark:text-muted-foreground">
+        &copy; {t("footer.copyright")}
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+  import { createRoot } from "react-dom/client";
+  import React from "react";
+
+  // Get translations
+  const lang = document.documentElement.lang || "es";
+  const translations = {
+    es: {
+      "jobs.filter_all": "Todos",
+      "jobs.filter_department": "Departamento",
+      "jobs.filter_location": "Ubicación",
+      "jobs.filter_type": "Tipo",
+      "jobs.engineering": "Ingeniería",
+      "jobs.design": "Diseño",
+      "jobs.marketing": "Marketing",
+      "jobs.product": "Producto",
+      "jobs.other": "Otros",
+      "jobs.full_time": "Tiempo completo",
+      "jobs.part_time": "Tiempo parcial"
+    },
+    en: {
+      "jobs.filter_all": "All",
+      "jobs.filter_department": "Department",
+      "jobs.filter_location": "Location",
+      "jobs.filter_type": "Type",
+      "jobs.engineering": "Engineering",
+      "jobs.design": "Design",
+      "jobs.marketing": "Marketing",
+      "jobs.product": "Product",
+      "jobs.other": "Other",
+      "jobs.full_time": "Full Time",
+      "jobs.part_time": "Part Time"
+    }
+  };
+
+  const t = (key: string): string => {
+    return translations[lang as keyof typeof translations]?.[key as keyof (typeof translations)[keyof typeof translations]] || key;
+  };
+
+  // Get departments, locations, and types from the job cards
+  const jobCards = document.querySelectorAll('.job-card');
+  const departments = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.department))];
+  const locations = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.location))];
+  const types = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.type))];
+
+  // Filter function
+  function filterJobs(filterType: string, value: string): void {
+    jobCards.forEach(card => {
+      const htmlCard = card as HTMLElement;
+      if (value === 'all' || htmlCard.dataset[filterType as keyof DOMStringMap] === value) {
+        htmlCard.style.display = '';
+      } else {
+        htmlCard.style.display = 'none';
+      }
+    });
+  }
+
+  // Render tabs
+  const container = document.getElementById('jobs-tabs-container');
+  if (container) {
+    const root = createRoot(container);
+    root.render(
+      React.createElement(Tabs, { defaultValue: "all", className: "w-full" },
+        React.createElement("div", { className: "flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4" },
+          React.createElement("div", null,
+            React.createElement("h3", { className: "text-lg font-medium mb-2" }, t("jobs.filter_department")),
+            React.createElement(TabsList, { className: "h-auto flex-wrap" },
+              React.createElement(TabsTrigger, { 
+                value: "all", 
+                onClick: () => filterJobs('department', 'all')
+              }, t("jobs.filter_all")),
+              departments.map(dept => 
+                React.createElement(TabsTrigger, { 
+                  key: dept, 
+                  value: dept,
+                  onClick: () => filterJobs('department', dept || '')
+                }, dept === 'engineering' ? t("jobs.engineering") :
+                   dept === 'design' ? t("jobs.design") :
+                   dept === 'marketing' ? t("jobs.marketing") :
+                   dept === 'product' ? t("jobs.product") :
+                   dept === 'other' ? t("jobs.other") : dept)
+              )
+            )
+          ),
+          React.createElement("div", null,
+            React.createElement("h3", { className: "text-lg font-medium mb-2" }, t("jobs.filter_location")),
+            React.createElement(TabsList, { className: "h-auto flex-wrap" },
+              React.createElement(TabsTrigger, { 
+                value: "all_location", 
+                onClick: () => filterJobs('location', 'all')
+              }, t("jobs.filter_all")),
+              locations.map(location => 
+                React.createElement(TabsTrigger, { 
+                  key: location, 
+                  value: location || '',
+                  onClick: () => filterJobs('location', location || '')
+                }, location)
+              )
+            )
+          ),
+          React.createElement("div", null,
+            React.createElement("h3", { className: "text-lg font-medium mb-2" }, t("jobs.filter_type")),
+            React.createElement(TabsList, { className: "h-auto flex-wrap" },
+              React.createElement(TabsTrigger, { 
+                value: "all_type", 
+                onClick: () => filterJobs('type', 'all')
+              }, t("jobs.filter_all")),
+              types.map(type => 
+                React.createElement(TabsTrigger, { 
+                  key: type, 
+                  value: type || '',
+                  onClick: () => filterJobs('type', type || '')
+                }, type === 'full_time' ? t("jobs.full_time") :
+                   type === 'part_time' ? t("jobs.part_time") : type)
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+</script>
+
+<style>
+  /* Add any custom styles here */
+  .animate-blob {
+    animation: blob-bounce 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  @keyframes blob-bounce {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+</style> 

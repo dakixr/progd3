@@ -1,0 +1,294 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ModeToggle } from "@/components/ModeToggle";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { LanguagePicker } from "@/components/LanguagePicker";
+import Layout from "@/layouts/Layout.astro";
+import { jobs } from "@/data/jobs";
+import { formatPostedDate } from "@/lib/utils";
+
+import { Pencil, Trash2, Plus } from "lucide-react";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Sort jobs by posted date (newest first)
+const sortedJobs = [...jobs].sort((a, b) => 
+  new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime()
+);
+
+// Get department label
+function getDepartmentLabel(department: string) {
+  if (department === 'engineering') return 'Ingeniería';
+  if (department === 'design') return 'Diseño';
+  if (department === 'marketing') return 'Marketing';
+  if (department === 'product') return 'Producto';
+  if (department === 'other') return 'Otros';
+  return department;
+}
+
+// Get type label
+function getTypeLabel(type: string) {
+  if (type === 'full_time') return 'Tiempo completo';
+  if (type === 'part_time') return 'Tiempo parcial';
+  return type;
+}
+---
+
+<Layout title="Admin - Gestión de Empleos | programita d3">
+  <!-- Header/Navbar -->
+  <header
+    class="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80"
+  >
+    <div class="container mx-auto flex h-16 items-center justify-between px-4">
+      <a
+        href="/"
+        class="font-pixelify text-2xl font-bold text-primary dark:text-primary-light"
+        >programita d3</a
+      >
+      <div class="flex items-center gap-4">
+        <a href="/admin/jobs" class="font-medium">Admin</a>
+        <LanguagePicker lang={lang} client:load />
+        <ModeToggle client:load />
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Panel -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">Gestión de Empleos</h1>
+        <Button className="flex items-center gap-2" client:load>
+          <Plus className="h-4 w-4" />
+          <span>Añadir Empleo</span>
+        </Button>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Listado de Empleos</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b">
+                  <th class="text-left py-3 px-4">Título</th>
+                  <th class="text-left py-3 px-4">Departamento</th>
+                  <th class="text-left py-3 px-4">Ubicación</th>
+                  <th class="text-left py-3 px-4">Tipo</th>
+                  <th class="text-left py-3 px-4">Publicado</th>
+                  <th class="text-right py-3 px-4">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedJobs.map((job) => (
+                  <tr class="border-b hover:bg-muted/50">
+                    <td class="py-3 px-4">{job.title}</td>
+                    <td class="py-3 px-4">{getDepartmentLabel(job.department)}</td>
+                    <td class="py-3 px-4">{job.location}</td>
+                    <td class="py-3 px-4">{getTypeLabel(job.type)}</td>
+                    <td class="py-3 px-4">{formatPostedDate(job.postedDate)}</td>
+                    <td class="py-3 px-4 text-right">
+                      <div class="flex justify-end gap-2">
+                        <Button variant="outline" size="sm" className="h-8 w-8 p-0" client:load>
+                          <Pencil className="h-4 w-4" />
+                          <span class="sr-only">Editar</span>
+                        </Button>
+                        <Button variant="outline" size="sm" className="h-8 w-8 p-0 text-destructive" client:load>
+                          <Trash2 className="h-4 w-4" />
+                          <span class="sr-only">Eliminar</span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- Job Form (Hidden by default, would be shown when adding/editing) -->
+      <div class="hidden mt-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Añadir Empleo</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label for="title" class="block text-sm font-medium">Título</label>
+                  <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  />
+                </div>
+                
+                <div class="space-y-2">
+                  <label for="id" class="block text-sm font-medium">ID (URL)</label>
+                  <input 
+                    type="text" 
+                    id="id" 
+                    name="id" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  />
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                  <label for="department" class="block text-sm font-medium">Departamento</label>
+                  <select 
+                    id="department" 
+                    name="department" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  >
+                    <option value="engineering">Ingeniería</option>
+                    <option value="design">Diseño</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="product">Producto</option>
+                    <option value="other">Otros</option>
+                  </select>
+                </div>
+                
+                <div class="space-y-2">
+                  <label for="location" class="block text-sm font-medium">Ubicación</label>
+                  <input 
+                    type="text" 
+                    id="location" 
+                    name="location" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  />
+                </div>
+                
+                <div class="space-y-2">
+                  <label for="type" class="block text-sm font-medium">Tipo</label>
+                  <select 
+                    id="type" 
+                    name="type" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  >
+                    <option value="full_time">Tiempo completo</option>
+                    <option value="part_time">Tiempo parcial</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label for="workMode" class="block text-sm font-medium">Modalidad</label>
+                  <select 
+                    id="workMode" 
+                    name="workMode" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  >
+                    <option value="remote">Remoto</option>
+                    <option value="hybrid">Híbrido</option>
+                    <option value="onsite">Presencial</option>
+                  </select>
+                </div>
+                
+                <div class="space-y-2">
+                  <label for="postedDate" class="block text-sm font-medium">Fecha de publicación</label>
+                  <input 
+                    type="date" 
+                    id="postedDate" 
+                    name="postedDate" 
+                    required
+                    class="w-full px-3 py-2 border rounded-md bg-background"
+                  />
+                </div>
+              </div>
+              
+              <div class="space-y-2">
+                <label for="description" class="block text-sm font-medium">Descripción</label>
+                <textarea 
+                  id="description" 
+                  name="description" 
+                  rows="3"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                ></textarea>
+              </div>
+              
+              <div class="space-y-2">
+                <label for="requirements" class="block text-sm font-medium">Requisitos (uno por línea)</label>
+                <textarea 
+                  id="requirements" 
+                  name="requirements" 
+                  rows="5"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                ></textarea>
+              </div>
+              
+              <div class="space-y-2">
+                <label for="responsibilities" class="block text-sm font-medium">Responsabilidades (uno por línea)</label>
+                <textarea 
+                  id="responsibilities" 
+                  name="responsibilities" 
+                  rows="5"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                ></textarea>
+              </div>
+              
+              <div class="space-y-2">
+                <label for="benefits" class="block text-sm font-medium">Beneficios (uno por línea)</label>
+                <textarea 
+                  id="benefits" 
+                  name="benefits" 
+                  rows="5"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                ></textarea>
+              </div>
+              
+              <div class="flex justify-end gap-2">
+                <Button variant="outline" client:load>Cancelar</Button>
+                <Button type="submit" client:load>Guardar</Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer
+    class="bg-background text-foreground dark:bg-background dark:text-foreground py-8 px-4 md:px-0 mt-12 border-t"
+  >
+    <div class="container mx-auto">
+      <div class="text-center text-muted-foreground">
+        &copy; {t("footer.copyright")} - Panel de Administración
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  // This would be expanded in a real application to handle form submission,
+  // editing, and deleting jobs through an API
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Admin panel loaded');
+  });
+</script> 
