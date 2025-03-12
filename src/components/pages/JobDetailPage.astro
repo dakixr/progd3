@@ -1,0 +1,312 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/i18n/utils";
+import Layout from "@/layouts/Layout.astro";
+import { jobs } from "@/data/jobs";
+import { formatPostedDate } from "@/lib/utils";
+import { MapPin, Clock, Briefcase, Calendar, ArrowLeft, Share2 } from "lucide-react";
+
+// Define props interface
+interface Props {
+  job: any;
+}
+
+// Get the job from props
+const { job } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Get department label
+function getDepartmentLabel(department: string) {
+  if (department === 'engineering') return 'Ingeniería';
+  if (department === 'design') return 'Diseño';
+  if (department === 'marketing') return 'Marketing';
+  if (department === 'product') return 'Producto';
+  if (department === 'other') return 'Otros';
+  return department;
+}
+
+// Get type label
+function getTypeLabel(type: string) {
+  if (type === 'full_time') return 'Tiempo completo';
+  if (type === 'part_time') return 'Tiempo parcial';
+  return type;
+}
+---
+
+<Layout title={`${job.title} | programita d3`}>
+  <!-- Job Detail Section -->
+  <section class="py-12 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="mb-8">
+        <a href={localizedPath('jobs', lang)} class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          <span>{t('jobs.back_to_jobs')}</span>
+        </a>
+      </div>
+
+      <div class="bg-card rounded-lg shadow-md overflow-hidden">
+        <div class="p-6 md:p-8">
+          <div class="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+            <div>
+              <h1 class="text-3xl font-bold mb-2">{job.title}</h1>
+              <div class="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                <div class="flex items-center gap-1">
+                  <MapPin className="h-4 w-4" />
+                  <span>{job.location}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <Briefcase className="h-4 w-4" />
+                  <span>{getDepartmentLabel(job.department)}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
+                  <span>{getTypeLabel(job.type)}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
+                  <span>{formatPostedDate(job.postedDate)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <Button variant="outline" size="sm" className="flex items-center gap-1" client:load>
+                <Share2 className="h-4 w-4" />
+                <span>{t('jobs.share')}</span>
+              </Button>
+            </div>
+          </div>
+
+          <Separator className="my-6" client:load />
+
+          <div class="space-y-8">
+            <div>
+              <p class="text-foreground mb-6">{job.description}</p>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-semibold mb-4">{t('jobs.responsibilities')}</h2>
+              <ul class="list-disc pl-5 space-y-2">
+                {job.responsibilities.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-semibold mb-4">{t('jobs.requirements')}</h2>
+              <ul class="list-disc pl-5 space-y-2">
+                {job.requirements.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="text-xl font-semibold mb-4">{t('jobs.benefits')}</h2>
+              <ul class="list-disc pl-5 space-y-2">
+                {job.benefits.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Form -->
+      <div class="mt-12 bg-card rounded-lg shadow-md overflow-hidden">
+        <div class="p-6 md:p-8">
+          <h2 class="text-2xl font-bold mb-6">{t('jobs.apply_now')}</h2>
+          
+          <form class="space-y-6" id="job-application-form">
+            <input type="hidden" name="job_id" value={job.id} />
+            <input type="hidden" name="job_title" value={job.title} />
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label for="first_name" class="block text-sm font-medium">Nombre</label>
+                <input 
+                  type="text" 
+                  id="first_name" 
+                  name="first_name" 
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                />
+              </div>
+              
+              <div class="space-y-2">
+                <label for="last_name" class="block text-sm font-medium">Apellidos</label>
+                <input 
+                  type="text" 
+                  id="last_name" 
+                  name="last_name" 
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                />
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                />
+              </div>
+              
+              <div class="space-y-2">
+                <label for="phone" class="block text-sm font-medium">Teléfono</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="w-full px-3 py-2 border rounded-md bg-background"
+                />
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="linkedin" class="block text-sm font-medium">LinkedIn (opcional)</label>
+              <input 
+                type="url" 
+                id="linkedin" 
+                name="linkedin" 
+                placeholder="https://linkedin.com/in/tu-perfil"
+                class="w-full px-3 py-2 border rounded-md bg-background"
+              />
+            </div>
+            
+            <div class="space-y-2">
+              <label for="portfolio" class="block text-sm font-medium">Portfolio/GitHub (opcional)</label>
+              <input 
+                type="url" 
+                id="portfolio" 
+                name="portfolio" 
+                class="w-full px-3 py-2 border rounded-md bg-background"
+              />
+            </div>
+            
+            <div class="space-y-2">
+              <label for="cover_letter" class="block text-sm font-medium">Carta de presentación</label>
+              <textarea 
+                id="cover_letter" 
+                name="cover_letter" 
+                rows="5"
+                class="w-full px-3 py-2 border rounded-md bg-background"
+              ></textarea>
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-medium">CV</label>
+              <div class="flex items-center justify-center w-full">
+                <label for="cv_file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-background/50 hover:bg-background/80">
+                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-muted-foreground" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                    </svg>
+                    <p class="mb-2 text-sm text-muted-foreground"><span class="font-semibold">Haz clic para subir</span> o arrastra y suelta</p>
+                    <p class="text-xs text-muted-foreground">PDF, DOC o DOCX (MAX. 10MB)</p>
+                  </div>
+                  <input id="cv_file" name="cv_file" type="file" class="hidden" accept=".pdf,.doc,.docx" required />
+                </label>
+              </div>
+              <div id="file-name" class="mt-2 text-sm text-muted-foreground"></div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input 
+                  id="privacy_policy" 
+                  name="privacy_policy" 
+                  type="checkbox" 
+                  required
+                  class="w-4 h-4 border rounded"
+                />
+              </div>
+              <label for="privacy_policy" class="ml-2 text-sm text-muted-foreground">
+                Acepto la política de privacidad y el tratamiento de mis datos para el proceso de selección.
+              </label>
+            </div>
+            
+            <div>
+              <Button type="submit" className="w-full md:w-auto" client:load>
+                {t('jobs.apply_button')}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Display file name when selected
+  document.getElementById('cv_file')?.addEventListener('change', function(e) {
+    const fileName = (e.target as HTMLInputElement).files?.[0]?.name;
+    const fileNameElement = document.getElementById('file-name');
+    if (fileNameElement && fileName) {
+      fileNameElement.textContent = `Archivo seleccionado: ${fileName}`;
+    }
+  });
+
+  // Form submission handler
+  document.getElementById('job-application-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // In a real application, you would send the form data to your server
+    // For this demo, we'll just show a success message
+    alert('¡Gracias por tu solicitud! Te contactaremos pronto.');
+    
+    // Reset the form
+    (e.target as HTMLFormElement).reset();
+    const fileNameElement = document.getElementById('file-name');
+    if (fileNameElement) {
+      fileNameElement.textContent = '';
+    }
+  });
+</script>
+
+<style>
+  /* Add any custom styles here */
+  .animate-blob {
+    animation: blob-bounce 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  @keyframes blob-bounce {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+</style> 

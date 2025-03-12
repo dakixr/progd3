@@ -4,6 +4,7 @@ export const languages = {
 };
 
 export const defaultLang = 'es';
+export const showDefaultLang = false;
 
 export const ui = {
   es: {

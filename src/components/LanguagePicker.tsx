@@ -1,5 +1,5 @@
 import { languages } from '../i18n/ui';
-import { useTranslations } from '@/i18n/utils';
+import { getLocalizedURL } from '@/i18n/utils';
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,38 +11,20 @@ import { Globe } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export function LanguagePicker({ lang }: { lang: string }) {
-  const [pathname, setPathname] = useState('/');
+  const [currentUrl, setCurrentUrl] = useState<URL | null>(null);
   
   // Use useEffect to access window only on the client side
   useEffect(() => {
-    setPathname(window.location.pathname);
+    setCurrentUrl(new URL(window.location.href));
   }, []);
   
   // Handle language switching
   const handleLanguageSwitch = (targetLang: string) => {
-    if (targetLang === lang) return;
+    if (targetLang === lang || !currentUrl) return;
     
-    let newPathname = pathname;
-    
-    // Handle job detail pages
-    if (pathname.includes('/jobs/')) {
-      // For job detail pages, we need to preserve the job ID
-      const jobId = pathname.split('/').pop();
-      if (targetLang === 'en') {
-        newPathname = `/en/jobs/${jobId}`;
-      } else {
-        newPathname = `/jobs/${jobId}`;
-      }
-    } else {
-      // For other pages, use the standard language path logic
-      if (targetLang === 'en') {
-        newPathname = pathname.startsWith('/en') ? pathname : `/en${pathname}`;
-      } else {
-        newPathname = pathname.startsWith('/en') ? pathname.replace(/^\/en/, '') : pathname;
-      }
-    }
-    
-    window.location.href = newPathname;
+    // Use the utility function to get the localized URL
+    const newPath = getLocalizedURL(currentUrl, targetLang as any);
+    window.location.href = newPath;
   };
 
   return (
@@ -54,18 +36,15 @@ export function LanguagePicker({ lang }: { lang: string }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          className={lang === 'es' ? 'bg-muted' : ''}
-          onClick={() => handleLanguageSwitch('es')}
-        >
-          Español
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className={lang === 'en' ? 'bg-muted' : ''}
-          onClick={() => handleLanguageSwitch('en')}
-        >
-          English
-        </DropdownMenuItem>
+        {Object.entries(languages).map(([code, label]) => (
+          <DropdownMenuItem
+            key={code}
+            className={lang === code ? 'bg-muted' : ''}
+            onClick={() => handleLanguageSwitch(code)}
+          >
+            {label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
