@@ -1,5 +1,24 @@
 #!/bin/bash
 
+set -euo pipefail
+
+# CloudFront distribution for progd3.es
+# ID: E28YIHZ6ND2P9W
+# ARN: arn:aws:cloudfront::211125447703:distribution/E28YIHZ6ND2P9W
+# You can override by exporting DISTRIBUTION_ID before running.
+DISTRIBUTION_ID=${DISTRIBUTION_ID:-E28YIHZ6ND2P9W}
+
 astro build
 
-aws s3 sync dist/ s3://progd3.es --delete
+# 1) Upload immutable assets first (JS/CSS/fonts/images) with long cache
+aws s3 sync dist/ s3://progd3.es --delete \
+  --exclude "*.html" \
+  --cache-control "public,max-age=31536000,immutable"
+
+# 2) Upload HTML with no-cache so clients always fetch latest and avoid hash-mismatch
+aws s3 sync dist/ s3://progd3.es \
+  --exclude "*" --include "*.html" \
+  --cache-control "no-cache, no-store, must-revalidate"
+
+# 3) Optional CloudFront invalidation (set DISTRIBUTION_ID to enable)
+aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"

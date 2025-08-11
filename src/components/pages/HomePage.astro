@@ -15,8 +15,8 @@ import { Sparkles } from "lucide-react";
 import "animate.css";
 import "aos/dist/aos.css";
 
-import CostCompiler from "@/assets/costcompiler.svg";
-import Ionisium from "@/assets/ionisium.svg";
+import CostCompilerIcon from "@/assets/costcompiler.svg";
+import IonisiumIcon from "@/assets/ionisium.svg";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -108,7 +108,7 @@ const t = useTranslations(lang);
               <CardHeader className="relative z-10" client:load>
                 <div>
                   <div class="relative aspect-video rounded-md mb-4 transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.01] flex items-center justify-center">
-                    <Ionisium width="80%" height="80%" />
+                    <IonisiumIcon class="w-4/5 h-4/5" />
                   </div>
                 </div>
                 <CardTitle
@@ -148,7 +148,7 @@ const t = useTranslations(lang);
               <CardHeader className="relative z-10" client:load>
                 <div>
                   <div class="relative aspect-video rounded-md mb-4 transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.01] flex items-center justify-center">
-                    <CostCompiler width="80%" height="80%" />
+                    <CostCompilerIcon class="w-4/5 h-4/5" />
                   </div>
                 </div>
                 <CardTitle
