@@ -156,9 +156,27 @@ function getTypeLabel(type: string) {
 
   // Get departments, locations, and types from the job cards
   const jobCards = document.querySelectorAll('.job-card');
-  const departments = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.department))];
-  const locations = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.location))];
-  const types = [...new Set(Array.from(jobCards).map(card => (card as HTMLElement).dataset.type))];
+  const departments = [
+    ...new Set(
+      Array.from(jobCards)
+        .map(card => (card as HTMLElement).dataset.department)
+        .filter((d): d is string => Boolean(d))
+    )
+  ];
+  const locations = [
+    ...new Set(
+      Array.from(jobCards)
+        .map(card => (card as HTMLElement).dataset.location)
+        .filter((l): l is string => Boolean(l))
+    )
+  ];
+  const types = [
+    ...new Set(
+      Array.from(jobCards)
+        .map(card => (card as HTMLElement).dataset.type)
+        .filter((t): t is string => Boolean(t))
+    )
+  ];
 
   // Filter function
   function filterJobs(filterType: string, value: string): void {
@@ -186,11 +204,11 @@ function getTypeLabel(type: string) {
                 value: "all", 
                 onClick: () => filterJobs('department', 'all')
               }, t("jobs.filter_all")),
-              departments.map(dept => 
-                React.createElement(TabsTrigger, { 
-                  key: dept, 
+              departments.map(dept =>
+                React.createElement(TabsTrigger, {
+                  key: dept,
                   value: dept,
-                  onClick: () => filterJobs('department', dept || '')
+                  onClick: () => filterJobs('department', dept)
                 }, dept === 'engineering' ? t("jobs.engineering") :
                    dept === 'design' ? t("jobs.design") :
                    dept === 'marketing' ? t("jobs.marketing") :
@@ -206,11 +224,11 @@ function getTypeLabel(type: string) {
                 value: "all_location", 
                 onClick: () => filterJobs('location', 'all')
               }, t("jobs.filter_all")),
-              locations.map(location => 
-                React.createElement(TabsTrigger, { 
-                  key: location, 
-                  value: location || '',
-                  onClick: () => filterJobs('location', location || '')
+              locations.map(location =>
+                React.createElement(TabsTrigger, {
+                  key: location,
+                  value: location,
+                  onClick: () => filterJobs('location', location)
                 }, location)
               )
             )
@@ -222,11 +240,11 @@ function getTypeLabel(type: string) {
                 value: "all_type", 
                 onClick: () => filterJobs('type', 'all')
               }, t("jobs.filter_all")),
-              types.map(type => 
-                React.createElement(TabsTrigger, { 
-                  key: type, 
-                  value: type || '',
-                  onClick: () => filterJobs('type', type || '')
+              types.map(type =>
+                React.createElement(TabsTrigger, {
+                  key: type,
+                  value: type,
+                  onClick: () => filterJobs('type', type)
                 }, type === 'full_time' ? t("jobs.full_time") :
                    type === 'part_time' ? t("jobs.part_time") : type)
               )
