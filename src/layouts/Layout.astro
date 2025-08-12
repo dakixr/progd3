@@ -65,8 +65,8 @@ const t = useTranslations(lang);
           >programita d3</a
         >
         <div class="flex items-center gap-4">
-          <LanguagePicker lang={lang} client:load />
-          <ModeToggle client:load />
+          <LanguagePicker lang={lang} client:only="react" />
+          <ModeToggle client:only="react" />
         </div>
       </div>
     </header>
@@ -164,10 +164,7 @@ const t = useTranslations(lang);
           </div>
         </div>
 
-        <Separator
-          className="my-8 bg-muted-foreground dark:bg-muted-foreground"
-          client:load
-        />
+        <Separator className="my-8 bg-muted-foreground dark:bg-muted-foreground" />
 
         <div class="text-center text-muted-foreground dark:text-muted-foreground">
           &copy; {t("footer.copyright")}

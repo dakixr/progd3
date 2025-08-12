@@ -8,7 +8,8 @@ set -euo pipefail
 # You can override by exporting DISTRIBUTION_ID before running.
 DISTRIBUTION_ID=${DISTRIBUTION_ID:-E28YIHZ6ND2P9W}
 
-astro build
+# Use local Astro via pnpm to avoid global toolchain issues
+pnpm run -s build
 
 # 1) Upload immutable assets first (JS/CSS/fonts/images) with long cache
 aws s3 sync dist/ s3://progd3.es --delete \
