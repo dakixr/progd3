@@ -83,11 +83,11 @@
   --chart-5: oklch(0.645 0.246 16.439);
 
   /* Dark-mode tuned FX palette */
-  --fx-purple: oklch(0.62 0.27 300);
-  --fx-magenta: oklch(0.68 0.28 330);
-  --fx-amber: oklch(0.78 0.22 70);
-  --fx-blue: oklch(0.62 0.24 250);
-  --fx-coral: oklch(0.72 0.22 35);
+  --fx-purple: oklch(0.66 0.25 300);
+  --fx-magenta: oklch(0.72 0.26 330);
+  --fx-amber: oklch(0.84 0.20 70);
+  --fx-blue: oklch(0.70 0.22 250);
+  --fx-coral: oklch(0.80 0.20 35);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -202,18 +202,6 @@
     background-position: top left;
   }
 
-  .bg-grid-soft {
-    background-image:
-      linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
-      radial-gradient(900px 500px at 0% -10%, color-mix(in oklab, var(--fx-blue) 16%, transparent) 0%, transparent 60%),
-      radial-gradient(900px 500px at 100% 110%, color-mix(in oklab, var(--fx-magenta) 20%, transparent) 0%, transparent 60%),
-      radial-gradient(1200px 700px at 50% 120%, color-mix(in oklab, var(--fx-amber) 12%, transparent) 0%, transparent 65%),
-      linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent), transparent 40%);
-    background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
-    background-position: top left, top left, top left, bottom right, bottom center, top left;
-  }
-
   .card-surface {
     position: relative;
     background: var(--card);
@@ -258,7 +246,7 @@
     outline-color: var(--ring);
   }
 
-  .card-surface:is(:hover, :focus-visible)::before { opacity: 0.35; }
+  .card-surface:is(:hover, :focus-visible)::before { opacity: 0.65; }
 
   /* ribbed highlight layer to emulate glass facets */
   .card-surface::after {
